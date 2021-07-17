@@ -1,7 +1,13 @@
 import React from "react";
 
-const FeedList = () => {
-  return <div></div>;
+const FeedList = ({ postText, id }) => {
+  return (
+    <div>
+      <div className="feed-list">
+        <p>{postText} </p>
+      </div>
+    </div>
+  );
 };
 
 export default FeedList;

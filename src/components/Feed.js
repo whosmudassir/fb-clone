@@ -1,15 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../config";
-
+import FeedList from "./FeedList";
 
 const Feed = () => {
   const [textInput, setTextInput] = useState();
-  const [fetchPost, setFetchPost ] =useState([])
+  const [fetchPost, setFetchPost] = useState([]);
 
-  useEffect(()=>{
-    getPosts()
-  },[])
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   const textHandler = (e) => {
     setTextInput(e.target.value);
@@ -45,6 +45,12 @@ const Feed = () => {
         </form>
       </div>
       {textInput}
+
+      {fetchPost.map((post) => (
+        <div>
+          <FeedList postText={post.postText} id={post.id} />
+        </div>
+      ))}
     </div>
   );
 };
