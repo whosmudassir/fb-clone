@@ -4,6 +4,11 @@ import { db } from "../config";
 import FeedList from "./FeedList";
 
 const Feed = () => {
+  const trendingApi =
+    "https://api.giphy.com/v1/gifs/trending?api_key=ipt5l0S0VJXOiOQaH0izMBlvArQJBi1B&limit=25&rating=g";
+  const searchApi =
+    "https://api.giphy.com/v1/gifs/search?api_key=ipt5l0S0VJXOiOQaH0izMBlvArQJBi1B&q=";
+
   const [textInput, setTextInput] = useState();
   const [fetchPost, setFetchPost] = useState([]);
 
@@ -35,7 +40,6 @@ const Feed = () => {
   return (
     <div>
       <div className="feed-input">
-        <p className="profile">p</p>
         <form onSubmit={submitHandler}>
           <input type="text" value={textInput} onChange={textHandler} />
           <button>Gif</button>
