@@ -30,6 +30,7 @@ const Feed = () => {
     e.preventDefault();
     db.collection("posts").add({ postText: textInput, gif: displayGif });
     setTextInput("");
+    setDisplayGif("")
   };
 
   const getPosts = () => {
