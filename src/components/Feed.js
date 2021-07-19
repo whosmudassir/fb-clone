@@ -1,8 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { db } from "../config";
+import firebase from "firebase";
 import FeedList from "./FeedList";
 import "../styles.css";
+import { DebounceInput } from "react-debounce-input";
 
 const Feed = () => {
   const trendingApi =
@@ -28,21 +30,27 @@ const Feed = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    db.collection("posts").add({ postText: textInput, gif: displayGif });
+    db.collection("posts").add({
+      postText: textInput,
+      gif: displayGif,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
+    });
     setTextInput("");
     setDisplayGif("");
   };
 
   const getPosts = () => {
-    db.collection("posts").onSnapshot(function (querySnapshot) {
-      setFetchPost(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          postText: doc.data().postText,
-          gif: doc.data().gif
-        }))
-      );
-    });
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot(function (querySnapshot) {
+        setFetchPost(
+          querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            postText: doc.data().postText,
+            gif: doc.data().gif
+          }))
+        );
+      });
   };
 
   const getGif = () => {
@@ -78,7 +86,7 @@ const Feed = () => {
             value={textInput}
             onChange={textHandler}
           />
-          <button className="btn" disabled={!textInput} type="submit">
+          <button className="post-btn" disabled={!textInput} type="submit">
             Post
           </button>
         </form>
@@ -95,7 +103,15 @@ const Feed = () => {
 
       {toggle ? (
         <div className="gif-modal">
-          <input type="text" value={searchInput} onChange={inputFetch} />
+          <DebounceInput
+            minLength={2}
+            debounceTimeout={600}
+            placeholder=" Search Gif"
+            className="modal-search"
+            type="text"
+            value={searchInput}
+            onChange={inputFetch}
+          />
 
           {gif.map((gif, index) => (
             <div key={gif.id}>
@@ -104,7 +120,7 @@ const Feed = () => {
                 alt="gif"
                 onClick={() => {
                   setDisplayGif(gif.images.fixed_width.url);
-                  console.log(gif.images.fixed_width.url);
+
                   setToggle(!toggle);
                   setSearchInput("");
                 }}
