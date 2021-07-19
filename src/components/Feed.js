@@ -30,7 +30,7 @@ const Feed = () => {
     e.preventDefault();
     db.collection("posts").add({ postText: textInput, gif: displayGif });
     setTextInput("");
-    setDisplayGif("")
+    setDisplayGif("");
   };
 
   const getPosts = () => {
@@ -71,16 +71,25 @@ const Feed = () => {
     <div>
       <div className="feed-input">
         <form onSubmit={submitHandler}>
-          <input type="text" value={textInput} onChange={textHandler} />
-
-          <button disabled={!textInput} type="submit">
+          <input
+            placeholder=" What's on your mind?"
+            className="post-input"
+            type="text"
+            value={textInput}
+            onChange={textHandler}
+          />
+          <button className="btn" disabled={!textInput} type="submit">
             Post
           </button>
         </form>
-        <button onClick={getGif}>Gif</button>
-        <img src={displayGif} />
+
+        <div className="post-gif-img">
+          <img className="post-img" src={displayGif} />
+        </div>
+        <button className="gif-btn" onClick={getGif}>
+          Gif
+        </button>
       </div>
-      {textInput}
 
       {/* gif button toggle */}
 

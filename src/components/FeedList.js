@@ -9,7 +9,7 @@ const FeedList = ({ postText, id, gif }) => {
         <span className="profile"></span>
         <p className="post-text">{postText}</p>
 
-        <img src={gif} alt="gif.img" />
+        <img className="gif-img" src={gif} />
       </div>
     </div>
   );
