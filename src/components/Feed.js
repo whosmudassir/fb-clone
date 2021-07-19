@@ -103,9 +103,7 @@ const Feed = () => {
 
       {toggle ? (
         <div className="gif-modal">
-          <DebounceInput
-            minLength={2}
-            debounceTimeout={600}
+          <input
             placeholder=" Search Gif"
             className="modal-search"
             type="text"
