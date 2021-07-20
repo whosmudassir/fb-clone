@@ -4,7 +4,7 @@ import "../styles.css";
 const Nav = () => {
   return (
     <div className="nav">
-      <h3 className="nav-content">Mudassir Khan's Codemacers Assignment</h3>
+      <h3 className="nav-content">Mudassir Khan's Codemancers Assignment</h3>
     </div>
   );
 };
